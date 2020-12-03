@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "NTCP.Logic", "NTCP.Logic\NTCP.Logic.fsproj", "{B35830C6-8E6A-437E-B201-87478C74E0F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTCP.Script", "NTCP.Script\NTCP.Script.csproj", "{C2304F2B-54C3-4576-A10F-F3757B6BE58A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B35830C6-8E6A-437E-B201-87478C74E0F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35830C6-8E6A-437E-B201-87478C74E0F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35830C6-8E6A-437E-B201-87478C74E0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35830C6-8E6A-437E-B201-87478C74E0F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2304F2B-54C3-4576-A10F-F3757B6BE58A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2304F2B-54C3-4576-A10F-F3757B6BE58A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2304F2B-54C3-4576-A10F-F3757B6BE58A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2304F2B-54C3-4576-A10F-F3757B6BE58A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F2882DD-3FD2-481D-95F2-DE1773DA928B}
+	EndGlobalSection
+EndGlobal

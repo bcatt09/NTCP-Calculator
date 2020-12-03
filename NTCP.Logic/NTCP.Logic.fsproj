@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework> 
+    <RootNamespace>NTCP_Calculator</RootNamespace> 
+    <GenerateDocumentationFile>true</GenerateDocumentationFile> 
+    <AssemblyName>NTCP.esapi</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Calculator.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Stats" Version="0.3.0-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="VMS.TPS.Common.Model.API">
+      <HintPath>Y:\ESAPI\dev\ESAPI 15.6\VMS.TPS.Common.Model.API.dll</HintPath>
+    </Reference>
+    <Reference Include="VMS.TPS.Common.Model.Types">
+      <HintPath>Y:\ESAPI\dev\ESAPI 15.6\VMS.TPS.Common.Model.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+</Project>
