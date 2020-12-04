@@ -44,7 +44,7 @@
                     AreAnimationsEnabled="False"
                     Height="80"
                     Background="{DynamicResource MahApps.Brushes.Accent4}">
-            <Grid VerticalAlignment="Center" Margin="50,0">
+            <Grid VerticalAlignment="Center" Margin="75,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -153,34 +153,38 @@
             <TextBlock Text="m : " 
                    Grid.Column="3" Grid.Row="4"
                    HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding AlphaBetaDose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding AlphaBetaDose, Mode=TwoWay}"
+                     KeyUp="TextBox_KeyEnterUpdate"
                      Grid.Column="4" Grid.Row="1"
                      Width="50" Height="30"/>
-            <TextBox Text="{Binding TD50Dose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding TD50Dose, Mode=TwoWay}"
+                     KeyUp="TextBox_KeyEnterUpdate"
                      Grid.Column="4" Grid.Row="2"
                      Width="50" Height="30"/>
-            <TextBox Text="{Binding ParameterSet.n, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding n, Mode=TwoWay}"
+                     KeyUp="TextBox_KeyEnterUpdate"
                      Grid.Column="4" Grid.Row="3"
                      Width="50" Height="30"/>
-            <TextBox Text="{Binding ParameterSet.m, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding m, Mode=TwoWay}"
+                     KeyUp="TextBox_KeyEnterUpdate"
                      Grid.Column="4" Grid.Row="4"
                      Width="50" Height="30"/>
-            <TextBlock Text="{Binding ParameterSet.AlphaBeta.Unit}" 
+            <TextBlock Text="{Binding AlphaBeta.Unit}" 
                        Grid.Column="5" Grid.Row="1"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding ParameterSet.TD50.Unit}" 
+            <TextBlock Text="{Binding TD50.Unit}" 
                        Grid.Column="5" Grid.Row="2"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding ParameterSet.AlphaBeta, StringFormat='AlphaBeta: {0}'}" 
+            <TextBlock Text="{Binding AlphaBeta, StringFormat='AlphaBeta: {0}'}" 
                        Grid.Column="6" Grid.Row="1"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding ParameterSet.TD50, StringFormat='TD50: {0}'}" 
+            <TextBlock Text="{Binding TD50, StringFormat='TD50: {0}'}" 
                        Grid.Column="6" Grid.Row="2"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding ParameterSet.n, StringFormat='n: {0}'}" 
+            <TextBlock Text="{Binding n, StringFormat='n: {0}'}" 
                        Grid.Column="6" Grid.Row="3"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding ParameterSet.m, StringFormat='m: {0}'}" 
+            <TextBlock Text="{Binding m, StringFormat='m: {0}'}" 
                        Grid.Column="6" Grid.Row="4"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <!--#endregion-->

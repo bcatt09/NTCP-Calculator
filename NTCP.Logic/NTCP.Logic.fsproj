@@ -3,7 +3,7 @@
     <TargetFramework>net472</TargetFramework> 
     <RootNamespace>NTCP_Calculator</RootNamespace> 
     <GenerateDocumentationFile>true</GenerateDocumentationFile> 
-    <AssemblyName>NTCP.Logic1</AssemblyName>
+    <AssemblyName>NTCP.Logic</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Calculator.fs" />

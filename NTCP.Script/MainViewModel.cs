@@ -22,8 +22,37 @@ namespace NTCP
 
             _patient = patient;
             _plan = plan;
-            ParameterSet = new ParameterSet();
             StructureList = Plan.StructureSet.Structures.Where(x => !x.IsEmpty && !excludedDicomTypes.Contains(x.DicomType)).ToList();
+            DefaultParameterSets  = new List<ParameterSet>()
+            {
+                new ParameterSet()
+                {
+                    Name = "Lung",
+                    Type = ParameterSetType.Lung,
+                    AlphaBeta = new DoseValue(2.5, DoseUnit.Gy),
+                    TD50 = new DoseValue(3080, DoseUnit.cGy),
+                    n = 0.99,
+                    m = 0.37
+                },
+                new ParameterSet()
+                {
+                    Name = "Liver Primary",
+                    Type = ParameterSetType.LiverPrimary,
+                    AlphaBeta = new DoseValue(2.5, DoseUnit.Gy),
+                    TD50 = new DoseValue(3540, DoseUnit.cGy),
+                    n = 0.97,
+                    m = 0.12
+                },
+                new ParameterSet()
+                {
+                    Name = "Liver Mets",
+                    Type = ParameterSetType.LiverMet,
+                    AlphaBeta = new DoseValue(2.5, DoseUnit.Gy),
+                    TD50 = new DoseValue(4070, DoseUnit.cGy),
+                    n = 0.97,
+                    m = 0.12
+                }
+            };
 
             _initialLoad = false;
             SelectedStructure = StructureList.First();
@@ -31,13 +60,44 @@ namespace NTCP
         }
 
         // Data members
-        private ParameterSet _parameterSet;
-        public ParameterSet ParameterSet
+        private double _n;
+        public double n
         {
-            get { return _parameterSet; }
+            get { return _n; }
             set 
             {
-                Set(ref _parameterSet, value);
+                Set(ref _n, value);
+                if (!_initialLoad) GetEqd2Data();
+            }
+        }
+        private double _m;
+        public double m
+        {
+            get { return _m; }
+            set
+            {
+                Set(ref _m, value);
+                if (!_initialLoad) GetEqd2Data();
+            }
+        }
+        private DoseValue _alphaBeta;
+        public DoseValue AlphaBeta
+        {
+            get { return _alphaBeta; }
+            set
+            {
+                Set(ref _alphaBeta, value);
+                RaisePropertyChanged(() => AlphaBetaDose);
+                if (!_initialLoad) GetEqd2Data();
+            }
+        }
+        private DoseValue _td50;
+        public DoseValue TD50
+        {
+            get { return _td50; }
+            set
+            {
+                Set(ref _td50, value);
                 RaisePropertyChanged(() => AlphaBetaDose);
                 RaisePropertyChanged(() => TD50Dose);
                 if (!_initialLoad) GetEqd2Data();
@@ -117,60 +177,29 @@ namespace NTCP
         public string DosePerFraction { get { return Plan.DosePerFraction.ToString(); } }
         public double AlphaBetaDose
         {
-            get { return ParameterSet.AlphaBeta.Dose; }
-            set { ParameterSet.AlphaBeta = new DoseValue(value, ParameterSet.AlphaBeta.Unit); }
+            get { return AlphaBeta.Dose; }
+            set { AlphaBeta = new DoseValue(value, AlphaBeta.Unit); }
         }
 
         public double TD50Dose
         {
-            get { return ParameterSet.TD50.Dose; }
-            set { ParameterSet.TD50 = new DoseValue(value, ParameterSet.TD50.Unit); }
+            get { return TD50.Dose; }
+            set { TD50 = new DoseValue(value, TD50.Unit); }
         }
         public string MeanDose { get { return Plan.GetDVHCumulativeData(SelectedStructure, DoseValuePresentation.Absolute, VolumePresentation.Relative, 100).MeanDose.ToString(); } }
         //public string MeanEqd2DoseDisplay { get { return MeanEqd2Dose.ToString(); } }
 
         // Constants
-        public List<ParameterSet> DefaultParameterSets { get; } = new List<ParameterSet>()
-        {
-            new ParameterSet()
-            {
-                Name = "Lung",
-                Type = ParameterSetType.Lung,
-                AlphaBeta = new DoseValue(2.5, DoseUnit.Gy),
-                TD50 = new DoseValue(3080, DoseUnit.cGy),
-                n = 0.99,
-                m = 0.37
-            },
-            new ParameterSet()
-            {
-                Name = "Liver Primary",
-                Type = ParameterSetType.LiverPrimary,
-                AlphaBeta = new DoseValue(2.5, DoseUnit.Gy),
-                TD50 = new DoseValue(3540, DoseUnit.cGy),
-                n = 0.97,
-                m = 0.12
-            },
-            new ParameterSet()
-            {
-                Name = "Liver Mets",
-                Type = ParameterSetType.LiverMet,
-                AlphaBeta = new DoseValue(2.5, DoseUnit.Gy),
-                TD50 = new DoseValue(4070, DoseUnit.cGy),
-                n = 0.97,
-                m = 0.12
-            }
-        };
+        public List<ParameterSet> DefaultParameterSets { get; }
 
         public void SelectNewDefaultParameterSet()
         {
             var set = DefaultParameterSets.Where(x => x.Type == SelectedDefaultParameterSet.Type).Single();
-            ParameterSet = new ParameterSet()
-            {
-                AlphaBeta = set.AlphaBeta,
-                TD50 = set.TD50,
-                n = set.n,
-                m = set.m
-            };
+
+            AlphaBeta = set.AlphaBeta;
+            TD50 = set.TD50;
+            n = set.n;
+            m = set.m;
         }
 
         public void GetDifferentialDVH()
@@ -183,13 +212,13 @@ namespace NTCP
         public void GetEqd2Data()
         {
             //System.Windows.MessageBox.Show("GetEqd2Data");
-            eqd2DvhData = Calculator.getEqd2DvhData(diffDvhData, Plan.NumberOfFractions.Value, ParameterSet.AlphaBeta);
+            eqd2DvhData = Calculator.getEqd2DvhData(diffDvhData, Plan.NumberOfFractions.Value, AlphaBeta);
             CalcNTCP();
         }
 
         public void CalcNTCP()
         {
-            var result = Calculator.getNTCPs(eqd2DvhData, ParameterSet.TD50, ParameterSet.n, ParameterSet.m, SelectedStructure.Volume, Plan.GetDVHCumulativeData(SelectedStructure, DoseValuePresentation.Absolute, VolumePresentation.Relative, 100).MaxDose, Plan.TotalDose);
+            var result = Calculator.getNTCPs(eqd2DvhData, TD50, n, m, SelectedStructure.Volume, Plan.GetDVHCumulativeData(SelectedStructure, DoseValuePresentation.Absolute, VolumePresentation.Relative, 100).MaxDose, Plan.TotalDose);
             NTCP = result.NTCP;
             NTCPEUD = result.NTCPEUD;
             MeanEqd2Dose = result.MeanEqd2Dose;
