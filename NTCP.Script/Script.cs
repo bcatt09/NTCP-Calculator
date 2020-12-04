@@ -12,9 +12,11 @@ namespace VMS.TPS
     {
         public void Execute(ScriptContext context)
         {
-            ViewModel viewModel = new ViewModel(context.Patient, context.PlanSetup);
-            MainWindow window = new MainWindow();
-            window.DataContext = viewModel;
+            MainViewModel viewModel = new MainViewModel(context.Patient, context.PlanSetup);
+            MainWindow window = new MainWindow()
+            {
+                DataContext = viewModel
+            };
             window.ShowDialog();
         }
     }

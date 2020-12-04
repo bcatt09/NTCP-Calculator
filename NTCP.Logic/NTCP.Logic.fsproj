@@ -17,11 +17,15 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="VMS.TPS.Common.Model.API">
-      <HintPath>Y:\ESAPI\dev\ESAPI 15.6\VMS.TPS.Common.Model.API.dll</HintPath>
+      <HintPath>..\packages\VMS.TPS.Common.Model.API.dll</HintPath>
     </Reference>
     <Reference Include="VMS.TPS.Common.Model.Types">
-      <HintPath>Y:\ESAPI\dev\ESAPI 15.6\VMS.TPS.Common.Model.Types.dll</HintPath>
+      <HintPath>..\packages\VMS.TPS.Common.Model.Types.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="5.0.0" />
   </ItemGroup>
 </Project>

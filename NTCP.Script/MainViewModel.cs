@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,19 +12,27 @@ using static VMS.TPS.Common.Model.Types.DoseValue;
 
 namespace NTCP
 {
-    class ViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
-        public ViewModel(Patient patient, PlanSetup plan)
+        public MainViewModel(Patient patient, PlanSetup plan)
         {
             _patient = patient;
             _plan = plan;
+            ParameterSet = new ParameterSet();
+
+            SelectedDefaultParameterSet = DefaultParameterSets.First();
         }
 
         private ParameterSet _parameterSet;
         public ParameterSet ParameterSet
         {
             get { return _parameterSet; }
-            set { Set(ref _parameterSet, value); }
+            set 
+            {
+                Set(ref _parameterSet, value);
+                RaisePropertyChanged(() => AlphaBetaDose);
+                RaisePropertyChanged(() => TD50Dose);
+            }
         }
 
         private Patient _patient;
@@ -43,7 +52,11 @@ namespace NTCP
         public ParameterSet SelectedDefaultParameterSet
         {
             get { return _selectedDefaultParameterSet; }
-            set { Set(ref _selectedDefaultParameterSet, value); }
+            set 
+            {
+                Set(ref _selectedDefaultParameterSet, value);
+                SelectNewDefaultParameterSet();
+            }
         }
 
         private double _ntcp;
@@ -60,9 +73,23 @@ namespace NTCP
             set { Set(ref _ntcpEUD, value); }
         }
 
-        public List<ParameterSet> DefaultParameterSets = new List<ParameterSet>
-        { 
-            new ParameterSet
+        public double AlphaBetaDose
+        {
+            get { return ParameterSet.AlphaBeta.Dose; }
+            set { ParameterSet.AlphaBeta = new DoseValue(value, ParameterSet.AlphaBeta.Unit); }
+        }
+
+        public double TD50Dose
+        {
+            get { return ParameterSet.TD50.Dose; }
+            set { ParameterSet.TD50 = new DoseValue(value, ParameterSet.TD50.Unit); }
+        }
+
+        public string PatientName { get { return Patient.Name; } }
+
+        public List<ParameterSet> DefaultParameterSets { get; } = new List<ParameterSet>()
+        {
+            new ParameterSet()
             {
                 Name = "Lung",
                 Type = ParameterSetType.Lung,
@@ -71,7 +98,7 @@ namespace NTCP
                 n = 0.99,
                 m = 0.37
             },
-            new ParameterSet
+            new ParameterSet()
             {
                 Name = "Liver Primary",
                 Type = ParameterSetType.LiverPrimary,
@@ -80,7 +107,7 @@ namespace NTCP
                 n = 0.97,
                 m = 0.12
             },
-            new ParameterSet
+            new ParameterSet()
             {
                 Name = "Liver Mets",
                 Type = ParameterSetType.LiverMet,
@@ -91,15 +118,16 @@ namespace NTCP
             }
         };
 
-        public RelayCommand SelectNewDefaultParameterSetCommand = new RelayCommand(SelectNewDefaultParameterSet);
-
-        public void SelectNewDefaultParamaterSet()
+        public void SelectNewDefaultParameterSet()
         {
-            var set = DefaultParameterSets.Where(x => x.Type == ParameterSetType.Lung).Single();
-            ParameterSet.AlphaBeta = set.AlphaBeta;
-            ParameterSet.TD50 = set.TD50;
-            ParameterSet.n = set.n;
-            ParameterSet.m = set.m;
+            var set = DefaultParameterSets.Where(x => x.Type == SelectedDefaultParameterSet.Type).Single();
+            ParameterSet = new ParameterSet()
+            {
+                AlphaBeta = set.AlphaBeta,
+                TD50 = set.TD50,
+                n = set.n,
+                m = set.m
+            };
         }
     }
 }
