@@ -27,25 +27,41 @@ namespace NTCP
         public double n
         {
             get { return _n; }
-            set { Set(ref _n, value); }
+            set 
+            {
+                Set(ref _n, value);
+                RaisePropertyChanged(() => this);
+            }
         }
         private double _m;
         public double m
         {
             get { return _m; }
-            set { Set(ref _m, value); }
+            set
+            {
+                Set(ref _m, value);
+                RaisePropertyChanged(() => this);
+            }
         }
         private DoseValue _alphaBeta;
         public DoseValue AlphaBeta
         {
             get { return _alphaBeta; }
-            set { Set(ref _alphaBeta, value); }
+            set
+            {
+                Set(ref _alphaBeta, value);
+                RaisePropertyChanged(() => this);
+            }
         }
         private DoseValue _td50;
         public DoseValue TD50
         {
             get { return _td50; }
-            set { Set(ref _td50, value); }
+            set
+            {
+                Set(ref _td50, value);
+                RaisePropertyChanged(() => this);
+            }
         }
     }
 }

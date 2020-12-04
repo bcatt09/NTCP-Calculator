@@ -24,6 +24,12 @@ namespace NTCP
         public MainWindow()
         {
             InitializeComponent();
+            this.KeyDown += new KeyEventHandler((obj, e) => { if (e.Key == Key.Escape) this.Close(); });
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

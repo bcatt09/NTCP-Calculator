@@ -6,7 +6,7 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  mc:Ignorable="d"
                  Title="NTCP Calculator"
-                 Height="200"
+                 Height="500"
                  Width="750"
                  WindowStartupLocation="CenterScreen"
                  Background="{DynamicResource MahApps.Brushes.Window.Background}">
@@ -28,62 +28,189 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="75"/>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
-        <ComboBox ItemsSource="{Binding DefaultParameterSets}"
-                  DisplayMemberPath="Name"
-                  SelectedItem="{Binding SelectedDefaultParameterSet, Mode=TwoWay}"
-                  Height="35"/>
-        <TextBlock Text="α/β : " 
+        
+        <!--#region Patient Info-->
+        <mah:Flyout Position="Top"
+                    CloseButtonVisibility="Collapsed"
+                    Theme="Light"
+                    IsOpen="True"
+                    AreAnimationsEnabled="False"
+                    Height="80"
+                    Background="{DynamicResource MahApps.Brushes.Accent4}">
+            <Grid VerticalAlignment="Center" Margin="50,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Patient Name: "
+                   Grid.Column="0" Grid.Row="0"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="Plan: "
+                   Grid.Column="0" Grid.Row="1"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="Total Dose: "
+                   Grid.Column="2" Grid.Row="0"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="Number of Fractions: "
+                   Grid.Column="2" Grid.Row="1"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="Dose per Fraction: "
+                   Grid.Column="2" Grid.Row="2"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding PatientName}" 
                    Grid.Column="1" Grid.Row="0"
-                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBlock Text="TD50 : " 
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding PlanName}" 
                    Grid.Column="1" Grid.Row="1"
-                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBlock Text="n : " 
-                   Grid.Column="1" Grid.Row="2"
-                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBlock Text="m : " 
-                   Grid.Column="1" Grid.Row="3"
-                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Text="{Binding AlphaBetaDose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="0" Grid.Column="2"
-                 Width="50" Height="35"/>
-        <TextBox Text="{Binding TD50Dose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="1" Grid.Column="2"
-                 Width="50" Height="35"/>
-        <TextBox Text="{Binding ParameterSet.n, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="2" Grid.Column="2"
-                 Width="50" Height="35"/>
-        <TextBox Text="{Binding ParameterSet.m, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="3" Grid.Column="2"
-                 Width="50" Height="35"/>
-        <TextBlock Text="{Binding ParameterSet.AlphaBeta.Unit}" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding TotalDose}" 
                    Grid.Column="3" Grid.Row="0"
                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBlock Text="{Binding ParameterSet.TD50.Unit}" 
+                <TextBlock Text="{Binding NumberOfFractions}" 
                    Grid.Column="3" Grid.Row="1"
                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBlock Text="{Binding ParameterSet.AlphaBeta, StringFormat='AlphaBeta: {0}'}" 
-                   Grid.Column="4" Grid.Row="0"/>
-        <TextBlock Text="{Binding ParameterSet.TD50, StringFormat='TD50: {0}'}" 
-                   Grid.Column="4" Grid.Row="1"/>
-        <TextBlock Text="{Binding ParameterSet.n, StringFormat='n: {0}'}" 
-                   Grid.Column="4" Grid.Row="2"/>
-        <TextBlock Text="{Binding ParameterSet.m, StringFormat='m: {0}'}" 
-                   Grid.Column="4" Grid.Row="3"/>
+                <TextBlock Text="{Binding DosePerFraction}" 
+                   Grid.Column="3" Grid.Row="2"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </Grid>
+        </mah:Flyout>
+        <!--#endregion-->
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--#region Structure Options-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        Grid.Row="1" Grid.ColumnSpan="3">
+                <TextBlock Text="Structure :   " 
+                           VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding StructureList}"
+                  DisplayMemberPath="Id"
+                  SelectedItem="{Binding SelectedStructure, Mode=TwoWay}"
+                  Height="35" Width="125"/>
+            </StackPanel>
+            <TextBlock Text="Mean Dose :   " 
+                   Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Text="Mean EQD2 Dose :   " 
+                   Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding MeanDose}" 
+                   Grid.Column="2" Grid.Row="2"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding MeanEqd2Dose}" 
+                   Grid.Column="2" Grid.Row="3"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <!--#endregion-->
+            
+            <!--#region Parameter Set Options-->
+            <TextBlock Text="Select Default Parameter Set :   " 
+                   Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding DefaultParameterSets}"
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding SelectedDefaultParameterSet, Mode=TwoWay}"
+                   Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3"
+                  Height="35"/>
+            <TextBlock Text="α/β : " 
+                   Grid.Column="3" Grid.Row="1"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Text="TD50 : " 
+                   Grid.Column="3" Grid.Row="2"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Text="n : " 
+                   Grid.Column="3" Grid.Row="3"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Text="m : " 
+                   Grid.Column="3" Grid.Row="4"
+                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding AlphaBetaDose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="4" Grid.Row="1"
+                     Width="50" Height="30"/>
+            <TextBox Text="{Binding TD50Dose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="4" Grid.Row="2"
+                     Width="50" Height="30"/>
+            <TextBox Text="{Binding ParameterSet.n, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="4" Grid.Row="3"
+                     Width="50" Height="30"/>
+            <TextBox Text="{Binding ParameterSet.m, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="4" Grid.Row="4"
+                     Width="50" Height="30"/>
+            <TextBlock Text="{Binding ParameterSet.AlphaBeta.Unit}" 
+                       Grid.Column="5" Grid.Row="1"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ParameterSet.TD50.Unit}" 
+                       Grid.Column="5" Grid.Row="2"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ParameterSet.AlphaBeta, StringFormat='AlphaBeta: {0}'}" 
+                       Grid.Column="6" Grid.Row="1"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ParameterSet.TD50, StringFormat='TD50: {0}'}" 
+                       Grid.Column="6" Grid.Row="2"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ParameterSet.n, StringFormat='n: {0}'}" 
+                       Grid.Column="6" Grid.Row="3"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ParameterSet.m, StringFormat='m: {0}'}" 
+                       Grid.Column="6" Grid.Row="4"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <!--#endregion-->
+            
+        </Grid>
+        
+        <!--#region NCTP Values-->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                    Grid.Row="2">
+            <TextBlock Text="NTCP (Lyman) :   " FontSize="16" FontWeight="Bold"
+                       Grid.Column="1" Grid.Row="2"
+                       HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding NTCP, StringFormat={}{0:F1}%, FallbackValue='NaN%'}" FontSize="16" FontWeight="Bold"
+                       Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
+                       Grid.Column="2" Grid.Row="2"
+                       HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,50,0"/>
+            <TextBlock Text="NTCP (EUD) :   " FontSize="16" FontWeight="Bold"
+                       Grid.Column="1" Grid.Row="3"
+                       HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding NTCPEUD, StringFormat={}{0:F1}%, FallbackValue='NaN%'}" FontSize="16" FontWeight="Bold"
+                       Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
+                       Grid.Column="2" Grid.Row="3"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </StackPanel>
+        <!--#endregion-->
+
+        <Button Grid.Column="0" Grid.Row="3"
+                Width="250" Height="50"
+                Content="Close"
+                Click="Close_Click"/>
     </Grid>
+
 </mah:MetroWindow>
