@@ -175,18 +175,6 @@
             <TextBlock Text="{Binding TD50.Unit}" 
                        Grid.Column="5" Grid.Row="2"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding AlphaBeta, StringFormat='AlphaBeta: {0}'}" 
-                       Grid.Column="6" Grid.Row="1"
-                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding TD50, StringFormat='TD50: {0}'}" 
-                       Grid.Column="6" Grid.Row="2"
-                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding n, StringFormat='n: {0}'}" 
-                       Grid.Column="6" Grid.Row="3"
-                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding m, StringFormat='m: {0}'}" 
-                       Grid.Column="6" Grid.Row="4"
-                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <!--#endregion-->
             
         </Grid>
