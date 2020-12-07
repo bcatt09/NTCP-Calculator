@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,14 +15,17 @@ namespace NTCP
 {
     public class MainViewModel : ViewModelBase
     {
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
         private bool _initialLoad = true;
         // Constructor
-        public MainViewModel(Patient patient, PlanSetup plan)
+        public MainViewModel(ScriptContext context)
         {
+            Log.Initialize(context);
+
             var excludedDicomTypes = new List<string> { "BODY", "EXTERNAL", "SUPPORT", "MARKER" };
 
-            _patient = patient;
-            _plan = plan;
+            _patient = context.Patient;
+            _plan = context.PlanSetup;
             StructureList = Plan.StructureSet.Structures.Where(x => !x.IsEmpty && !excludedDicomTypes.Contains(x.DicomType)).ToList();
             DefaultParameterSets  = new List<ParameterSet>()
             {
@@ -57,6 +61,9 @@ namespace NTCP
             _initialLoad = false;
             SelectedStructure = StructureList.First();
             SelectedDefaultParameterSet = DefaultParameterSets.First();
+
+            log.Info("");
+            LogManager.Shutdown();
         }
 
         // Data members
@@ -204,24 +211,43 @@ namespace NTCP
 
         public void GetDifferentialDVH()
         {
-            //System.Windows.MessageBox.Show("GetDifferentialDVH");
-            diffDvhData = Calculator.getDifferentialDvhData(Plan, SelectedStructure);
-            if (!_initialLoad) GetEqd2Data();
+            try
+            {
+                diffDvhData = Calculator.getDifferentialDvhData(Plan, SelectedStructure);
+                if (!_initialLoad) GetEqd2Data();
+            }
+            catch (Exception e)
+            {
+                log.Error(e, $"Could not get differential DVH data for {SelectedStructure.Id}\n");
+            }
         }
 
         public void GetEqd2Data()
         {
-            //System.Windows.MessageBox.Show("GetEqd2Data");
-            eqd2DvhData = Calculator.getEqd2DvhData(diffDvhData, Plan.NumberOfFractions.Value, AlphaBeta);
-            CalcNTCP();
+            try
+            {
+                eqd2DvhData = Calculator.getEqd2DvhData(diffDvhData, Plan.NumberOfFractions.Value, AlphaBeta);
+                CalcNTCP();
+            }
+            catch (Exception e)
+            {
+                log.Error(e, $"Could not calculate EQD2 data with alpha/beta = {AlphaBeta}\n");
+            }
         }
 
         public void CalcNTCP()
         {
-            var result = Calculator.getNTCPs(eqd2DvhData, TD50, n, m, SelectedStructure.Volume, Plan.GetDVHCumulativeData(SelectedStructure, DoseValuePresentation.Absolute, VolumePresentation.Relative, 100).MaxDose, Plan.TotalDose);
-            NTCP = result.NTCP;
-            NTCPEUD = result.NTCPEUD;
-            MeanEqd2Dose = result.MeanEqd2Dose;
+            try
+            {
+                var result = Calculator.getNTCPs(eqd2DvhData, TD50, n, m, SelectedStructure.Volume, Plan.GetDVHCumulativeData(SelectedStructure, DoseValuePresentation.Absolute, VolumePresentation.Relative, 100).MaxDose, Plan.TotalDose);
+                NTCP = result.NTCP;
+                NTCPEUD = result.NTCPEUD;
+                MeanEqd2Dose = result.MeanEqd2Dose;
+            }
+            catch (Exception e)
+            {
+                log.Error(e, $"Could not calculate NTCP\n");
+            }
         }
     }
 }

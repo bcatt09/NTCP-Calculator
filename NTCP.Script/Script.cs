@@ -1,9 +1,5 @@
 ﻿using NTCP;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using VMS.TPS.Common.Model.API;
 
 namespace VMS.TPS
@@ -12,12 +8,17 @@ namespace VMS.TPS
     {
         public void Execute(ScriptContext context)
         {
-            MainViewModel viewModel = new MainViewModel(context.Patient, context.PlanSetup);
-            MainWindow window = new MainWindow()
+            if (context.PlanSetup != null)
             {
-                DataContext = viewModel
-            };
-            window.ShowDialog();
+                MainViewModel viewModel = new MainViewModel(context);
+                MainWindow window = new MainWindow()
+                {
+                    DataContext = viewModel
+                };
+                window.ShowDialog();
+            }
+            else 
+                MessageBox.Show("Please select a single plan before running this script (plan sums are not supported)", "Invalid Plan", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
