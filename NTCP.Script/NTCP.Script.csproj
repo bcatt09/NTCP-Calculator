@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NTCP</RootNamespace>
-    <AssemblyName>NTCP-Calculator1.esapi</AssemblyName>
+    <AssemblyName>NTCP-Calculator.esapi</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -90,10 +90,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="VMS.TPS.Common.Model.API">
-      <HintPath>..\packages\VMS.TPS.Common.Model.API.dll</HintPath>
+      <HintPath>Y:\ESAPI\dev\ESAPI 16.1\VMS.TPS.Common.Model.API.dll</HintPath>
     </Reference>
     <Reference Include="VMS.TPS.Common.Model.Types">
-      <HintPath>..\packages\VMS.TPS.Common.Model.Types.dll</HintPath>
+      <HintPath>Y:\ESAPI\dev\ESAPI 16.1\VMS.TPS.Common.Model.Types.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

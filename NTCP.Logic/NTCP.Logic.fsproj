@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework> 
     <RootNamespace>NTCP_Calculator</RootNamespace> 
@@ -17,10 +17,10 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="VMS.TPS.Common.Model.API">
-      <HintPath>..\packages\VMS.TPS.Common.Model.API.dll</HintPath>
+      <HintPath>Y:\ESAPI\dev\ESAPI 16.1\VMS.TPS.Common.Model.API.dll</HintPath>
     </Reference>
     <Reference Include="VMS.TPS.Common.Model.Types">
-      <HintPath>..\packages\VMS.TPS.Common.Model.Types.dll</HintPath>
+      <HintPath>Y:\ESAPI\dev\ESAPI 16.1\VMS.TPS.Common.Model.Types.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
