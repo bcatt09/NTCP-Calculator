@@ -15,12 +15,12 @@ namespace NTCP
 {
     public class MainViewModel : ViewModelBase
     {
-        //private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
         private bool _initialLoad = true;
         // Constructor
         public MainViewModel(ScriptContext context)
         {
-            //Log.Initialize(context);
+            Log.Initialize(context);
 
             var excludedDicomTypes = new List<string> { "BODY", "EXTERNAL", "SUPPORT", "MARKER" };
 
@@ -62,8 +62,8 @@ namespace NTCP
             SelectedStructure = StructureList.First();
             SelectedDefaultParameterSet = DefaultParameterSets.First();
 
-            //log.Info("");
-            //LogManager.Shutdown();
+            log.Info("");
+            LogManager.Shutdown();
         }
 
         // Data members
@@ -218,7 +218,7 @@ namespace NTCP
             }
             catch (Exception e)
             {
-                //log.Error(e, $"Could not get differential DVH data for {SelectedStructure.Id}\n");
+                log.Error(e, $"Could not get differential DVH data for {SelectedStructure.Id}\n");
             }
         }
 
@@ -231,7 +231,7 @@ namespace NTCP
             }
             catch (Exception e)
             {
-                //log.Error(e, $"Could not calculate EQD2 data with alpha/beta = {AlphaBeta}\n");
+                log.Error(e, $"Could not calculate EQD2 data with alpha/beta = {AlphaBeta}\n");
             }
         }
 
@@ -246,7 +246,7 @@ namespace NTCP
             }
             catch (Exception e)
             {
-                //log.Error(e, $"Could not calculate NTCP\n");
+                log.Error(e, $"Could not calculate NTCP\n");
             }
         }
     }
