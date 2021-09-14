@@ -48,44 +48,59 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Patient Name: "
-                   Grid.Column="0" Grid.Row="0"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Plan: "
-                   Grid.Column="0" Grid.Row="1"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Total Dose: "
-                   Grid.Column="2" Grid.Row="0"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Number of Fractions: "
-                   Grid.Column="2" Grid.Row="1"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Dose per Fraction: "
-                   Grid.Column="2" Grid.Row="2"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding PatientName}" 
-                   Grid.Column="1" Grid.Row="0"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding PlanName}" 
-                   Grid.Column="1" Grid.Row="1"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding TotalDose}" 
-                   Grid.Column="3" Grid.Row="0"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding NumberOfFractions}" 
-                   Grid.Column="3" Grid.Row="1"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding DosePerFraction}" 
-                   Grid.Column="3" Grid.Row="2"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="88"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Patient Name: "
+                               Grid.Column="0" Grid.Row="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="Plan: "
+                               Grid.Column="0" Grid.Row="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding PatientName}" 
+                               Grid.Column="1" Grid.Row="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding PlanName}" 
+                               Grid.Column="1" Grid.Row="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="121"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Total Dose: "
+                               Grid.Column="0" Grid.Row="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="Number of Fractions: "
+                               Grid.Column="0" Grid.Row="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="Dose per Fraction: "
+                               Grid.Column="0" Grid.Row="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding TotalDose}" 
+                               Grid.Column="1" Grid.Row="0"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding NumberOfFractions}" 
+                               Grid.Column="1" Grid.Row="1"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding DosePerFraction}" 
+                               Grid.Column="1" Grid.Row="2"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
             </Grid>
         </mah:Flyout>
         <!--#endregion-->
