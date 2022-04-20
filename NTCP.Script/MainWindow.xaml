@@ -36,6 +36,23 @@
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
         
+        <Grid.Resources>
+            <Style x:Key="AccentCircleButtonStyle"
+                           BasedOn="{StaticResource MahApps.Styles.Button.Circle}"
+                           TargetType="{x:Type ButtonBase}">
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Badged.Foreground}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
         <!--#region Patient Info-->
         <mah:Flyout Position="Top"
                     CloseButtonVisibility="Collapsed"
@@ -146,7 +163,15 @@
                    Grid.Column="2" Grid.Row="3"
                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <!--#endregion-->
-            
+
+            <Button Width="30" Height="30" Grid.Column="6"
+                Style="{StaticResource AccentCircleButtonStyle}"
+                FontFamily="Book Antiqua"
+                FontWeight="Bold"
+                FontSize="20"
+                Content="i"
+                Click="Info_Click"/>
+
             <!--#region Parameter Set Options-->
             <TextBlock Text="Select Default Parameter Set :   " 
                    Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"

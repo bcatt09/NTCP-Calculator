@@ -1,0 +1,76 @@
+﻿<mah:MetroWindow x:Class="NTCP.InfoWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:math="clr-namespace:WpfMath.Controls;assembly=WpfMath"
+                 mc:Ignorable="d"
+                 Title="Calculation Infomation"
+                 Height="500"
+                 Width="1100"
+                 WindowStartupLocation="CenterScreen"
+                 Background="{DynamicResource MahApps.Brushes.Window.Background}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ClearTypeFormula" TargetType="math:FormulaControl">
+                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
+                <Setter Property="TextOptions.TextHintingMode" Value="Fixed" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.FlatButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center"
+            Text="Lyman-Kutcher-Burman (LKB)"/>
+        <math:FormulaControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Style="{StaticResource ClearTypeFormula}"
+            Formula="NTCP_{LKB} = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\frac{D_{max}-TD_{50}^V}{m\cdot TD_{50}^V}}e^{\frac{-x^2}{2}}dx"/>
+        <math:FormulaControl Grid.Row="2" Grid.Column="1" Style="{StaticResource ClearTypeFormula}"
+                   Formula="TD_{50}^V = \frac{TD_{50}}{V_{eff}}"/>
+        <math:FormulaControl Grid.Row="3" Grid.Column="1" Style="{StaticResource ClearTypeFormula}"
+                   Formula="V_{eff} = \sum_{i}V_i\left\(\frac{D_i}{D_{max}}\right\)^{\frac{1}{n}}"/>
+
+        <TextBlock Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center"
+            Text="Generalized Equivalent Uniform Dose (gEUD)"/>
+        <math:FormulaControl Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Style="{StaticResource ClearTypeFormula}"
+            Formula="NTCP_{gEUD} = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\frac{gEUD-TD_{50}}{m\cdot TD_{50}}}e^{\frac{-x^2}{2}}dx"/>
+        <math:FormulaControl Grid.Row="2" Grid.Column="3" Style="{StaticResource ClearTypeFormula}"
+                   Formula="gEUD=\left\(\sum_{i}\frac{V_i}{V_{tot}}D_i^{\frac{1}{n}}\right\)^n"/>
+
+        <math:FormulaControl Grid.Row="5" Grid.ColumnSpan="4" HorizontalAlignment="Center" Style="{StaticResource ClearTypeFormula}"
+                   Formula="n=\text{volume effect parameter}"/>
+        <math:FormulaControl Grid.Row="6" Grid.ColumnSpan="4" HorizontalAlignment="Center" Style="{StaticResource ClearTypeFormula}"
+                   Formula="m=\text{slope of dose-response curve}"/>
+
+        <Button Grid.Row="8" Grid.ColumnSpan="4"
+                Width="250" Height="50"
+                Content="Close"
+                Click="Close_Click"/>
+    </Grid>
+
+</mah:MetroWindow>

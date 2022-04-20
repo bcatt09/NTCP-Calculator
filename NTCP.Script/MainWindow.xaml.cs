@@ -31,6 +31,22 @@ namespace NTCP
         {
             this.Close();
         }
+
+        private void Info_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                InfoWindow infoWindow = new InfoWindow();
+                infoWindow.Show();
+
+                infoWindow.KeyDown += (o, e1) => { if (e1.Key == Key.Escape) (o as InfoWindow).Close(); };
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}\n\n{ex.InnerException}\n\n{ex.StackTrace}");
+            }
+        }
+
         private void TextBox_KeyEnterUpdate(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

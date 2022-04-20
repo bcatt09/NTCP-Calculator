@@ -3,7 +3,8 @@
     <TargetFramework>net472</TargetFramework> 
     <RootNamespace>NTCP_Calculator</RootNamespace> 
     <GenerateDocumentationFile>true</GenerateDocumentationFile> 
-    <AssemblyName>NTCP.Logic</AssemblyName>
+    <AssemblyName>NTCP.Logic</AssemblyName> 
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Calculator.fs" />
@@ -17,10 +18,10 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="VMS.TPS.Common.Model.API">
-      <HintPath>Y:\ESAPI\dev\ESAPI 16.1\VMS.TPS.Common.Model.API.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\VMS Libraries\VMS.TPS.Common.Model.API.dll</HintPath>
     </Reference>
     <Reference Include="VMS.TPS.Common.Model.Types">
-      <HintPath>Y:\ESAPI\dev\ESAPI 16.1\VMS.TPS.Common.Model.Types.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\VMS Libraries\VMS.TPS.Common.Model.Types.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
