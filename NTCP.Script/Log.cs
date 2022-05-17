@@ -37,7 +37,7 @@ namespace NTCP
             GlobalDiagnosticsContext.Set("Patient", $"{context.Patient.LastName}, {context.Patient.FirstName} ({context.Patient.Id})");
 
             // Clear the log every day and save yesterday's log in case there were errors that need to be looked into
-            if (File.Exists(GetDefaultLogPath()) && DateTime.Now.Day != File.GetLastWriteTime(GetDefaultLogPath()).Day)
+            if (File.Exists(GetDefaultLogPath()) && DateTime.Now.Month != File.GetLastWriteTime(GetDefaultLogPath()).Month)
             {
                 File.Delete(GetOldLogPath());
                 File.Copy(GetDefaultLogPath(), GetOldLogPath());
